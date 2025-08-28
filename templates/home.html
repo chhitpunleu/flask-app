@@ -1,0 +1,74 @@
+{% extends "master.html" %}
+{% block main_content %}
+{% if error %}
+<center>
+  <h3>{{ error }}</h3>
+</center>
+{% endif %}
+
+<!-- Hero Section -->
+<div class="container-fluid" 
+     style="background: linear-gradient(135deg, #6f4e37, #4b2e2e); color:#fff; padding: 3rem 1rem; border-radius: 12px; margin-bottom:2rem; text-align:center;">
+  <h1 style="font-weight:bold; font-size:2.5rem; margin-bottom:1rem;">
+    Welcome to Punleu
+  </h1>
+  <p style="font-size:1.2rem; max-width:600px; margin:auto; color:#f9f5f0;">
+    Discover our hand-picked products at affordable prices. Shop with style in our brown-themed store.
+  </p>
+  <a href="#products"
+     class="btn btn-lg mt-3"
+     style="background-color:#a17c5b; color:#fff; border:none; border-radius:30px; padding:0.75rem 2rem; font-weight:600;">
+     Shop Now
+  </a>
+</div>
+
+<!-- Products Section -->
+<div id="products" class="row">
+  <div
+    class="col-lg-3 col-md-3 col-sm-12 mb-4"
+    v-for="item in products"
+    :key="item.id"
+  >
+    <div class="product-card"
+         style="background-color:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08); padding:1rem; height:100%; display:flex; flex-direction:column; justify-content:space-between;">
+      
+      <span class="badge badge-pill"
+            style="background-color:#a17c5b; color:#fff; font-size:0.85rem; margin-bottom:0.5rem;">
+        [[ item.category ]]
+      </span>
+
+      <img
+        style="height:200px; object-fit:contain; margin-bottom:1rem;"
+        :src="'/static/uploads/' + item.image"
+        :alt="item.name"
+      />
+
+      <div class="product-card-body" style="flex-grow:1;">
+        <div>
+          <div class="product-card-title product-title"
+               style="font-weight:bold; font-size:1.1rem; color:#4b2e2e; margin-bottom:0.25rem;">
+               [[ item.name ]]
+          </div>
+          <a :href="'/detail/' + item.id"
+             style="cursor:pointer; text-decoration:underline; color:#186e95; font-size:0.9rem;">
+             see more
+          </a>
+        </div>
+
+        <div class="product-card-footer mt-2">
+          <span class="product-card-price"
+                style="color:#b23a48; font-weight:bold; font-size:1.1rem;">
+                $[[ item.price ]]
+          </span>
+        </div>
+      </div>
+
+      <button @click="addToCart(item)"
+              class="btn btn-sm mt-3 w-100"
+              style="border-radius:30px; border:1px solid #6f4e37; color:#6f4e37; background-color:transparent; font-weight:500;">
+        Add to Cart 🛒
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}

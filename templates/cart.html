@@ -1,0 +1,82 @@
+{% extends "master.html" %}
+{% block main_content %}
+<div class="container mt-4">
+  <h2 class="mb-4" style="color:#4b2e2e; font-weight:bold;">Your Cart</h2>
+
+  <!-- Cart Items -->
+  <div class="card mb-3" v-for="(item, index) in cart_list" :key="item.id"
+       style="border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.08); border:1px solid #a17c5b;">
+    <div class="row no-gutters align-items-center">
+      
+      <!-- Product Image -->
+      <div class="col-md-3 text-center p-2">
+        <img :src="'/static/uploads/' + item.image"
+             :alt="item.title"
+             class="img-fluid"
+             style="max-height:150px; border-radius:8px;">
+      </div>
+
+      <!-- Product Details -->
+      <div class="col-md-6">
+        <div class="card-body">
+          <h5 class="card-title" style="color:#6f4e37; font-weight:600;">[[ item.title ]]</h5>
+          <p class="card-text mb-1">
+            <small style="color:#a17c5b;">Category: [[ item.category ]]</small>
+          </p>
+          <p class="card-text mb-1 product-description" style="color:#4b2e2e;">
+            [[ item.description ]]
+          </p>
+        </div>
+      </div>
+
+      <!-- Price & Quantity -->
+      <div class="col-md-3 text-center">
+        <div class="card-body">
+          <h5 class="card-title" style="color:#b23a48; font-weight:bold;">
+            $[[ (item.price * item.qty).toFixed(2) ]]
+          </h5>
+
+          <div class="input-group mb-2" style="max-width:120px; margin:auto;">
+            <div class="input-group-prepend">
+              <button class="btn"
+                      style="background-color:#6f4e37; color:#fff; border:none;"
+                      type="button"
+                      @click="decreaseQty(item)">-</button>
+            </div>
+            <input type="text" class="form-control text-center"
+                   v-model="item.qty" readonly
+                   style="border:1px solid #a17c5b;">
+            <div class="input-group-append">
+              <button class="btn"
+                      style="background-color:#6f4e37; color:#fff; border:none;"
+                      type="button"
+                      @click="increaseQty(item)">+</button>
+            </div>
+          </div>
+
+          <button @click="removeCartItem(index)"
+                  class="btn btn-sm"
+                  style="background-color:#b23a48; color:#fff; border:none; border-radius:6px; padding:4px 12px;">
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Summary -->
+  <div class="row justify-content-end" v-if="cart_list.length > 0">
+    <div class="col-md-2">
+      <div class="card" style="border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.08); border:1px solid #a17c5b;">
+        <div class="card-body">
+          <button @click="checkout"
+                  class="btn btn-block mt-3"
+                  style="background-color:#6f4e37; color:#fff; border:none; border-radius:30px; padding:0.75rem; font-weight:600;">
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
