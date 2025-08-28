@@ -19,5 +19,5 @@ Follow these steps to set up the project locally and start the web app.
 1. **Clone the repository**  
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/computer-store-flask.git
-cd computer-store-flask
+git clone https://github.com/chhitpunleu/flask-app.git
+cd flask-app
